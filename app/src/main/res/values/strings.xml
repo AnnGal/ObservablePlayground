@@ -5,4 +5,6 @@
     <string name="btn_channel_label">Show snackbar (channel)</string>
     <string name="snackbar_message_hint">Message for snackbar</string>
     <string name="snackbar_message_text">Some message</string>
+    <string name="btn_live_data_label">Start Counter (LiveData)</string>
+    <string name="live_data_counter_text">LiveData: %s</string>
 </resources>

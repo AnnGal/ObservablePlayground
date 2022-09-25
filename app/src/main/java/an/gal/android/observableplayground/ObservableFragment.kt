@@ -34,6 +34,7 @@ class ObservableFragment : Fragment() {
     }
 
     private fun subscribeViewModel() {
+        // channel
         lifecycleScope.launchWhenStarted {
             viewModel.eventFlow.collect { event ->
                 when (event) {
@@ -47,11 +48,24 @@ class ObservableFragment : Fragment() {
                 }
             }
         }
+
+        // live data
+        viewModel.timerLiveData.observe(viewLifecycleOwner) { count ->
+            binding.textCounterLiveData.text = when {
+                count == null -> ""
+                count > 0 -> getString(R.string.live_data_counter_text, count.toString())
+                else -> getString(R.string.live_data_counter_text, "Done!")
+            }
+        }
     }
 
     private fun setListeners() {
         binding.btnShowChannelSnackbar.setOnClickListener {
-            viewModel.showChannelSnackbar(binding.textSnackbarMessage.text.toString())
+            viewModel.showChannelSnackbar(binding.editSnackbarMessage.text.toString())
+        }
+
+        binding.btnCounterLiveData.setOnClickListener {
+            viewModel.startSimpleTimer()
         }
     }
 
