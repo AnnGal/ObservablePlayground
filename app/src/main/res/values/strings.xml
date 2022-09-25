@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ObservablePlayground</string>
+    <string name="main_fragment_name">Observable</string>
+
+</resources>
