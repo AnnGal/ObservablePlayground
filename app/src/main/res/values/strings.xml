@@ -2,4 +2,7 @@
     <string name="app_name">ObservablePlayground</string>
     <string name="main_fragment_name">Observable</string>
 
+    <string name="btn_channel_label">Show snackbar (channel)</string>
+    <string name="snackbar_message_hint">Message for snackbar</string>
+    <string name="snackbar_message_text">Some message</string>
 </resources>
