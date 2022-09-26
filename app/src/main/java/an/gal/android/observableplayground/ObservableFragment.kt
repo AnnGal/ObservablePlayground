@@ -11,6 +11,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ObservableFragment : Fragment() {
 
@@ -47,6 +48,19 @@ class ObservableFragment : Fragment() {
         binding.btnRandomizeColorStateFlow.setOnClickListener {
             viewModel.getRandomWeatherState()
         }
+
+        // flow
+        binding.btnSimpleFlow.setOnClickListener {
+            lifecycleScope.launch {
+                viewModel.getCounterDataAsFlow().collectLatest { text ->
+                    binding.textCounterSimpleFlow.text = text
+                }
+            }
+        }
+
+        binding.btnSharedFlow.setOnClickListener {
+            viewModel.getSharedFlowCounterData()
+        }
     }
 
     private fun subscribeViewModel() {
@@ -65,7 +79,7 @@ class ObservableFragment : Fragment() {
             }
         }
 
-        // live data
+        // liveData
         viewModel.timerLiveData.observe(viewLifecycleOwner) { count ->
             binding.textCounterLiveData.text = when {
                 count == null -> ""
@@ -74,7 +88,7 @@ class ObservableFragment : Fragment() {
             }
         }
 
-        // state flow
+        // stateFlow
         lifecycleScope.launchWhenStarted {
             viewModel.stateFlow.collectLatest { state ->
                 binding.textWeatherState.text = getString(state.stateName)
@@ -82,6 +96,11 @@ class ObservableFragment : Fragment() {
             }
         }
 
+        // sharedFlow
+        lifecycleScope.launchWhenStarted {
+            viewModel.sharedFlow.collectLatest { text ->
+                binding.textCounterSharedFlow.text = text
+            }
+        }
     }
-
 }

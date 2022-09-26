@@ -1,6 +1,5 @@
 package an.gal.android.observableplayground
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,7 +37,7 @@ class ObservableViewModel : ViewModel() {
                 _timerLiveData.postValue(currentValue)
 
                 while (currentValue > 0) {
-                    delay(1000L)
+                    delay(DELAY_VALUE)
                     currentValue -= 1
                     _timerLiveData.postValue(currentValue)
                 }
@@ -60,7 +59,28 @@ class ObservableViewModel : ViewModel() {
         }
     }
 
+    fun getCounterDataAsFlow(): Flow<String> {
+        return flow {
+            repeat(COUNTER_MAX_VALUE) {
+                emit("Item #$it")
+                delay(DELAY_VALUE)
+            }
+            emit("Done!")
+        }
+    }
+
+    fun getSharedFlowCounterData(){
+        viewModelScope.launch {
+            repeat(COUNTER_MAX_VALUE) {
+                _sharedFlow.emit("Item #$it")
+                delay(DELAY_VALUE)
+            }
+            _sharedFlow.emit("Done!")
+        }
+    }
+
     companion object {
         const val COUNTER_MAX_VALUE = 15
+        const val DELAY_VALUE = 1000L
     }
 }
