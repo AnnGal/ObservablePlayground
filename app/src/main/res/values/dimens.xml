@@ -1,4 +1,7 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="layout_horizontal_gap">16dp</dimen>
+    <dimen name="small_inner_gap">8dp</dimen>
+    <dimen name="box_color_width">156dp</dimen>
+    <dimen name="box_color_height">36dp</dimen>
 </resources>

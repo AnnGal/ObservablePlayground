@@ -7,4 +7,10 @@
     <string name="snackbar_message_text">Some message</string>
     <string name="btn_live_data_label">Start Counter (LiveData)</string>
     <string name="live_data_counter_text">LiveData: %s</string>
+
+    <string name="weather_state_green">Green</string>
+    <string name="weather_state_yellow">Yellow</string>
+    <string name="weather_state_orange">Orange</string>
+    <string name="weather_state_red">Red</string>
+    <string name="btn_state_flow_label">Randomize color (StateFlow)</string>
 </resources>

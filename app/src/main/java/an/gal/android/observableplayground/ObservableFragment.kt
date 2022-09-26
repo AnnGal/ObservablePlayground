@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collectLatest
 
 class ObservableFragment : Fragment() {
 
@@ -27,10 +29,24 @@ class ObservableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ObservableViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ObservableViewModel::class.java]
 
         subscribeViewModel()
         setListeners()
+    }
+
+    private fun setListeners() {
+        binding.btnShowChannelSnackbar.setOnClickListener {
+            viewModel.showChannelSnackbar(binding.editSnackbarMessage.text.toString())
+        }
+
+        binding.btnCounterLiveData.setOnClickListener {
+            viewModel.startLiveDataSimpleTimer()
+        }
+
+        binding.btnRandomizeColorStateFlow.setOnClickListener {
+            viewModel.getRandomWeatherState()
+        }
     }
 
     private fun subscribeViewModel() {
@@ -57,16 +73,15 @@ class ObservableFragment : Fragment() {
                 else -> getString(R.string.live_data_counter_text, "Done!")
             }
         }
-    }
 
-    private fun setListeners() {
-        binding.btnShowChannelSnackbar.setOnClickListener {
-            viewModel.showChannelSnackbar(binding.editSnackbarMessage.text.toString())
+        // state flow
+        lifecycleScope.launchWhenStarted {
+            viewModel.stateFlow.collectLatest { state ->
+                binding.textWeatherState.text = getString(state.stateName)
+                binding.colorWeatherState.background = AppCompatResources.getDrawable(requireContext(), state.color)
+            }
         }
 
-        binding.btnCounterLiveData.setOnClickListener {
-            viewModel.startSimpleTimer()
-        }
     }
 
 }
