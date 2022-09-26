@@ -54,20 +54,19 @@
             android:id="@+id/btnCounterLiveData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/btn_live_data_label"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider" />
+            app:layout_constraintTop_toBottomOf="@+id/textCounterLiveData" />
 
         <TextView
             android:id="@+id/textCounterLiveData"
             style="@style/TextBasic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/btnCounterLiveData"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnCounterLiveData"
-            app:layout_constraintTop_toTopOf="@+id/btnCounterLiveData"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
             tools:text="10" />
 
         <View
